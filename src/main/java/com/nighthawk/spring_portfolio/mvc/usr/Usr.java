@@ -60,13 +60,10 @@ public class Usr {
     @Size(min = 2, max = 30, message = "Name (2 to 30 chars)")
     private String name;
 
-    @NotEmpty
     private double highScore;
 
-    @NotEmpty
     private double totalOfAllScores;
 
-    @NotEmpty
     private int numberOfScores;
 
     // To be implemented
