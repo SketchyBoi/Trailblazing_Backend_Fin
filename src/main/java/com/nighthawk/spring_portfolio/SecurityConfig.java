@@ -3,7 +3,8 @@ package com.nighthawk.spring_portfolio;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.nighthawk.spring_portfolio.mvc.jwt.JwtAuthenticationEntryPoint;
 import com.nighthawk.spring_portfolio.mvc.jwt.JwtRequestFilter;
-import com.nighthawk.spring_portfolio.mvc.person.PersonDetailsService;
+// import com.nighthawk.spring_portfolio.mvc.person.PersonDetailsService;
+import com.nighthawk.spring_portfolio.mvc.usr.UsrDetailsService;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,8 +22,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 
-
-
 /*
 * To enable HTTP Security in Spring, extend the WebSecurityConfigurerAdapter. 
 */
@@ -37,8 +36,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
 
+	// @Autowired
+	// private PersonDetailsService personDetailsService;
+
 	@Autowired
-	private PersonDetailsService personDetailsService;
+	private UsrDetailsService usrDetailsService;
 
     @Bean  // Sets up password encoding style
     PasswordEncoder passwordEncoder(){
@@ -50,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// configure AuthenticationManager so that it knows from where to load
 		// user for matching credentials
 		// Use BCryptPasswordEncoder
-		auth.userDetailsService(personDetailsService).passwordEncoder(passwordEncoder());
+		auth.userDetailsService(usrDetailsService).passwordEncoder(passwordEncoder());
 	}
 
 	@Override
@@ -68,8 +70,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.csrf().disable()
 			// list the requests/endpoints need to be authenticated
 			.authorizeRequests()
-				.antMatchers("/mvc/person/update/**", "/mvc/person/delete/**").authenticated()
-				.antMatchers("/api/person/**").authenticated()
+				.antMatchers("/mvc/usr/update/**", "/mvc/usr/delete/**").authenticated()
+				.antMatchers("/api/usr/**").authenticated()
 				.and()
 			// support cors
 			.cors().and()

@@ -93,10 +93,10 @@ public class Usr {
         this.numberOfScores = numberOfScores;
     }
 
-    // A custom getter to return age from dob attribute
+    // a custom getter to return the average score of a usr
     public double getAverageScore() {
         // check if the usr has played at all and that score total is valid compared to number of games
-        if (this.numberOfScores != 0 && (this.numberOfScores * 100) < this.totalOfAllScores) {
+        if ((this.numberOfScores != 0) && ((this.numberOfScores * 100) > this.totalOfAllScores)) {
             return this.totalOfAllScores / this.numberOfScores;
         }
         return 0.0;

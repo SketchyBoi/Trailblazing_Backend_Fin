@@ -5,7 +5,7 @@
       layout:decorate="~{layouts/base}" lang="en">
 
 <head>    <!-- Page specific head additions -->
-    <title>Person List</title>
+    <title>Usr List</title>
 </head>
 
 <!-- <body> -->
@@ -15,36 +15,42 @@
         <!-- Page specific body additions -->
         <header class="pb-3 mb-4 border-bottom">
             <a href="#" class="d-flex align-items-center text-light text-decoration-none">
-                <span class="fs-4">Database SQL Person</span>
+                <span class="fs-4">Database SQL Usr</span>
             </a>
         </header>
 
         <div class="container py-4 text-light bg-success">
 
-            <h2>Person Viewer</h2>
-            <a th:href="@{/mvc/person/create/}">Create Person</a>
+            <h2>Usr Viewer</h2>
+            <a th:href="@{/mvc/usr/create/}">Create Usr</a>
             <div class="row align-items-md-stretch">
                 <table class="table">
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>User ID</th>
-                        <th>Person</th>
-                        <th>Age</th>
+                        <th>Email</th>
+                        <th>Name</th>
+                        <th>High Score</th>
+                        <th>Total of All Scores</th>
+                        <th>Number of Scores</th>
+                        <th>Average Score</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="person : ${list}">
-                        <td th:text="${person.id}">Person ID</td>
-                        <td th:text="${person.email}">Birth Date</td>
-                        <td th:text="${person.name}">Name</td>
-                        <td th:if="${person.getAge() != -1}" th:text="${person.getAge()}">Age</td>
-                        <td th:unless="${person.getAge() != -1}" th:text="Unknown">Unknown Age</td>
+                    <tr th:each="usr : ${list}">
+                        <td th:text="${usr.id}">ID</td>
+                        <td th:text="${usr.email}">Birth Date</td>
+                        <td th:text="${usr.name}">Name</td>
+                        <td th:text="${usr.highScore}">High Score</td>
+                        <td th:text="${usr.totalOfAllScores}">Total of All Scores</td>
+                        <td th:text="${usr.numberOfScores}">Number of Scores</td>
+                        <td th:if="${usr.getAverageScore() != 0}" th:text="${usr.getAverageScore()}">Average Score</td>
+                        <td th:unless="${usr.getAverageScore() != 0}" th:text="Unknown">No Average Score</td>
                         <td>
                             <!--- <a th:href="@{/mvc/notes/{id}(id = ${person.id})}">Notes</a> -->
-                            <a th:href="@{/mvc/person/update/{id}(id = ${person.id})}">Update</a>
-                            <a th:href="@{/mvc/person/delete/{id}(id = ${person.id})}">Delete</a>
+                            <a th:href="@{/mvc/usr/update/{id}(id = ${usr.id})}">Update</a>
+                            <a th:href="@{/mvc/usr/delete/{id}(id = ${usr.id})}">Delete</a>
                         </td>
                     </tr>
                     </tbody>
