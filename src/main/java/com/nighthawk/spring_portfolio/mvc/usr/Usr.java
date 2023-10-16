@@ -84,23 +84,23 @@ public class Usr {
     
 
     // Constructor used when building object from an API
-    public Usr(String email, String password, String name, double highScore, double totalOfAllScores, int numberOfScores) {
+    public Usr(String email, String password, String name) { //double highScore, double totalOfAllScores, int numberOfScores) {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.highScore = highScore;
-        this.totalOfAllScores = totalOfAllScores;
-        this.numberOfScores = numberOfScores;
+        // this.highScore = highScore;
+        // this.totalOfAllScores = totalOfAllScores;
+        // this.numberOfScores = numberOfScores;
     }
 
     // a custom getter to return the average score of a usr
-    public double getAverageScore() {
-        // check if the usr has played at all and that score total is valid compared to number of games
-        if ((this.numberOfScores != 0) && ((this.numberOfScores * 100) > this.totalOfAllScores)) {
-            return this.totalOfAllScores / this.numberOfScores;
-        }
-        return 0.0;
-    }
+    // public double getAverageScore() {
+    //     // check if the usr has played at all and that score total is valid compared to number of games
+    //     if ((this.numberOfScores != 0) && ((this.numberOfScores * 100) > this.totalOfAllScores)) {
+    //         return this.totalOfAllScores / this.numberOfScores;
+    //     }
+    //     return 0.0;
+    // }
 
     // Initialize static test data 
     public static Usr[] init() {
@@ -110,26 +110,26 @@ public class Usr {
         p1.setName("Thomas Edison");
         p1.setEmail("toby@gmail.com");
         p1.setPassword("123Toby!");
-        p1.setHighScore(88.3);
-        p1.setTotalOfAllScores(238.2);
-        p1.setNumberOfScores(3);
+        // p1.setHighScore(88.3);
+        // p1.setTotalOfAllScores(238.2);
+        // p1.setNumberOfScores(3);
 
         // basics of class construction
         Usr p2 = new Usr();
         p2.setName("The Master");
         p2.setEmail("unbeat_table@gmail.com");
         p2.setPassword("guessTHIS");
-        p2.setHighScore(94.1);
-        p2.setTotalOfAllScores(1220.9);
-        p2.setNumberOfScores(14);
+        // p2.setHighScore(94.1);
+        // p2.setTotalOfAllScores(1220.9);
+        // p2.setNumberOfScores(14);
 
         Usr p3 = new Usr();
         p3.setName("Drew Reed");
         p3.setEmail("drewreedyo@gmail.com");
         p3.setPassword("notMyActualPassw0rd");
-        p3.setHighScore(84.9);
-        p3.setTotalOfAllScores(500.0);
-        p3.setNumberOfScores(6);
+        // p3.setHighScore(84.9);
+        // p3.setTotalOfAllScores(500.0);
+        // p3.setNumberOfScores(6);
 
         // Array definition and data initialization
         Usr usrs[] = {p1, p2, p3};

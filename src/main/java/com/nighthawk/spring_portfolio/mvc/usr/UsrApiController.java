@@ -65,12 +65,12 @@ public class UsrApiController {
     @PostMapping( "/post")
     public ResponseEntity<Object> postUsr(@RequestParam("email") String email,
                                             @RequestParam("password") String password,
-                                            @RequestParam("name") String name,
-                                            @RequestParam("highScore") double highScore,
-                                            @RequestParam("totalOfAllScores") double totalOfAllScores,
-                                            @RequestParam("numerOfScores") int numberOfScores) {
+                                            @RequestParam("name") String name) {
+                                            // @RequestParam("highScore") double highScore,
+                                            // @RequestParam("totalOfAllScores") double totalOfAllScores,
+                                            // @RequestParam("numerOfScores") int numberOfScores) {
         // A person object WITHOUT ID will create a new record with default roles as student
-        Usr usr = new Usr(email, password, name, highScore, totalOfAllScores, numberOfScores);
+        Usr usr = new Usr(email, password, name); //highScore, totalOfAllScores, numberOfScores);
         repository.save(usr);
         return new ResponseEntity<>(email +" is created successfully", HttpStatus.CREATED);
     }

@@ -30,10 +30,10 @@
                         <th>ID</th>
                         <th>Email</th>
                         <th>Name</th>
-                        <th>High Score</th>
+                        <!-- <th>High Score</th>
                         <th>Total of All Scores</th>
                         <th>Number of Scores</th>
-                        <th>Average Score</th>
+                        <th>Average Score</th> -->
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -42,11 +42,11 @@
                         <td th:text="${usr.id}">ID</td>
                         <td th:text="${usr.email}">Birth Date</td>
                         <td th:text="${usr.name}">Name</td>
-                        <td th:text="${usr.highScore}">High Score</td>
+                        <!-- <td th:text="${usr.highScore}">High Score</td>
                         <td th:text="${usr.totalOfAllScores}">Total of All Scores</td>
                         <td th:text="${usr.numberOfScores}">Number of Scores</td>
                         <td th:if="${usr.getAverageScore() != 0}" th:text="${usr.getAverageScore()}">Average Score</td>
-                        <td th:unless="${usr.getAverageScore() != 0}" th:text="Unknown">No Average Score</td>
+                        <td th:unless="${usr.getAverageScore() != 0}" th:text="Unknown">No Average Score</td> -->
                         <td>
                             <!--- <a th:href="@{/mvc/notes/{id}(id = ${person.id})}">Notes</a> -->
                             <a th:href="@{/mvc/usr/update/{id}(id = ${usr.id})}">Update</a>
