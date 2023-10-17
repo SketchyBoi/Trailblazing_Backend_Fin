@@ -42,6 +42,9 @@
                         <td th:text="${usr.id}">ID</td>
                         <td th:text="${usr.email}">Birth Date</td>
                         <td th:text="${usr.name}">Name</td>
+                        <!-- <td th:if="${usr.canvasHistory.size() != 0}" th:text="${usr.canvasHistory}">Canvas History</td>
+                        <td th:unless="${usr.canvasHistory.size() != 0}" th:text="Unknown">No Canvas History</td> -->
+                        <td th:text="${usr.canvasHistory}">Canvas History</td>
                         <!-- <td th:text="${usr.highScore}">High Score</td>
                         <td th:text="${usr.totalOfAllScores}">Total of All Scores</td>
                         <td th:text="${usr.numberOfScores}">Number of Scores</td>
