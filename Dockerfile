@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM openjdk:18-alpine3.13
+FROM openjdk:11.0.20.1
 WORKDIR /app
 RUN apk update && apk upgrade && \
     apk add --no-cache git 
