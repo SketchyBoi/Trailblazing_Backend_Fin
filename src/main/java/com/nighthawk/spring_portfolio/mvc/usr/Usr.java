@@ -1,11 +1,10 @@
 package com.nighthawk.spring_portfolio.mvc.usr;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Collection;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -62,7 +61,7 @@ public class Usr {
     @Size(min = 2, max = 30, message = "Name (2 to 30 chars)")
     private String name;
 
-    private ArrayList<HashMap<String, HashMap<String, Integer[][]>>> canvasHistory;
+    private ArrayList<int[][]> canvasHistory;
 
     // private double highScore;
 
@@ -91,18 +90,22 @@ public class Usr {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.canvasHistory = new ArrayList<HashMap<String, HashMap<String, Integer[][]>>>();
+        this.canvasHistory = new ArrayList<int[][]>();
         // this.highScore = highScore;
         // this.totalOfAllScores = totalOfAllScores;
         // this.numberOfScores = numberOfScores;
     }
 
-    public void addCanvasHistory(HashMap<String, HashMap<String, Integer[][]>> newCanvasHistory) {
+    public void addCanvasHistory(int[][] newCanvasHistory) {
         this.canvasHistory.add(newCanvasHistory);
     }
 
     public void addCanvasHistoryThruJSON(String newCanvasHistoryJSON) {
-        this.addCanvasHistory(convertJsonToData(newCanvasHistoryJSON));
+        try {
+            this.addCanvasHistory(convertJsonToData(newCanvasHistoryJSON));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // a custom getter to return the average score of a usr
@@ -114,17 +117,9 @@ public class Usr {
     //     return 0.0;
     // }
 
-    public static HashMap<String, HashMap<String, Integer[][]>> convertJsonToData(String jsonData) {
-        Gson gson = new Gson();
-        // type definition for parsing
-        TypeToken<HashMap<String, HashMap<String, Integer[][]>>> typeToken =
-                new TypeToken<HashMap<String, HashMap<String, Integer[][]>>>() {
-                };
-        // parsing JSON into correct data structure
-        HashMap<String, HashMap<String, Integer[][]>>
-                data = gson.fromJson(jsonData, typeToken.getType());
-
-        return data;
+    public static int[][] convertJsonToData(String jsonData) throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(jsonData, int[][].class);
     }
 
     // Initialize static test data 
@@ -146,15 +141,20 @@ public class Usr {
         // p3.setName("Drew Reed");
         // p3.setEmail("drewreedyo@gmail.com");
         // p3.setPassword("notMyActualPassw0rd");
-        HashMap<String, HashMap<String, Integer[][]>> data = new HashMap<>();
-        HashMap<String, Integer[][]> nodeIdData = new HashMap<>();
-        Integer[][] nodeData = {{10, 20}};
-        nodeIdData.put("1", nodeData);
-        HashMap<String, Integer[][]> adjacentData = new HashMap<>();
-        Integer[][] adjacentData1 = {{2, 30}, {3, 40}};
-        adjacentData.put("1", adjacentData1);
-        data.put("node_id", nodeIdData);
-        data.put("adjacent", adjacentData);
+        int[][] data = {
+            {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
+            {1, 0, 3, 6, 0, 0, 0, 0, 0, 0, 50, 0},
+            {2, 3, 0, 2, 6, 0, 0, 0, 0, 0, 40, 0},
+            {3, 6, 2, 0, 7, 8, 0, 0, 0, 0, 0, 0},
+            {4, 0, 6, 7, 0, 1, 8, 0, 0, 0, 0, 0},
+            {5, 0, 0, 8, 1, 0, 4, 10, 0, 0, 0, 0},
+            {6, 0, 0, 0, 8, 4, 0, 6, 10, 0, 0, 0},
+            {7, 0, 0, 0, 0, 10, 6, 0, 8, 2, 0, 0},
+            {8, 0, 0, 0, 0, 0, 10, 8, 0, 9, 20000, 0},
+            {9, 0, 0, 0, 0, 0, 0, 2, 9, 0, 1000, 0},
+            {10, 50, 40, 0, 0, 0, 0, 0, 20000, 1000, 0, 0},
+            {11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+        };  
         p3.addCanvasHistory(data);
         // p3.setHighScore(84.9);
         // p3.setTotalOfAllScores(500.0);
