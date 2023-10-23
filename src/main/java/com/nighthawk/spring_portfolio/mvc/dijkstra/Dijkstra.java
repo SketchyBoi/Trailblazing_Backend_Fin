@@ -75,6 +75,7 @@ public class Dijkstra {
         }
         return ShortestPathStack;
     }
+    
 
     public static void main(String args[]) {
         dijkstra(test, 9);

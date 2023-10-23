@@ -79,6 +79,10 @@ public class WeightedGraph {
         }
         return adjacencyList;
     }
+
+    public void setGraphFromAdjacencyList(int[][] adjacencyList){
+        
+    }
 }
 
 // WeightedGraph test = new WeightedGraph();
