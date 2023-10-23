@@ -3,14 +3,6 @@ package com.nighthawk.spring_portfolio.mvc.dijkstra;
 import java.util.HashMap;
 import java.util.ArrayList;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
 public class Node {
     private int VerticeIndex;
     private HashMap<Integer, Integer> Edges;
@@ -18,6 +10,23 @@ public class Node {
     Node (int ProvidedIndexFromFrontend) {
         this.VerticeIndex = ProvidedIndexFromFrontend; 
         this.Edges = new HashMap<Integer, Integer>();
+    }
+
+    Node (int ProvidedIndexFromFrontend, HashMap<Integer, Integer> ProvidedEdgesFromFrontend) {
+        this.VerticeIndex = ProvidedIndexFromFrontend; 
+        this.Edges = ProvidedEdgesFromFrontend;
+    }
+
+    public int getIndex() {
+        return this.VerticeIndex;
+    }
+
+    public HashMap<Integer, Integer> getEdges() {
+        return this.Edges;
+    }
+
+    public void setIndex(int ProvidedIndex) {
+        this.VerticeIndex = ProvidedIndex;
     }
 
     public void addEdgeToVertex(int ProvidedDestinationIndex, int ProvidedEdgeWeight) {

@@ -5,14 +5,6 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
 public class Dijkstra {
     private static final int inf = Integer.MAX_VALUE;
     private static HashMap<Node, Integer> ShortestDistanceMap;

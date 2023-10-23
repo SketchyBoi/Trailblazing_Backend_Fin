@@ -5,19 +5,15 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
 public class WeightedGraph {
     private ArrayList<Node> Graph;
 
-    BiDirectionalWeightedGraph() {
+    WeightedGraph() {
         this.Graph = new ArrayList<Node>();
+    }
+    
+    public ArrayList<Node> retrieveGraph(){
+        return this.Graph;
     }
 
     private int getMaximumLabel() {
@@ -85,7 +81,7 @@ public class WeightedGraph {
     }
 }
 
-// BiDirectionalWeightedGraph test = new BiDirectionalWeightedGraph();
+// WeightedGraph test = new WeightedGraph();
 
 // Node vertice1 = new Node(1);
 // Node vertice2 = new Node(2);
