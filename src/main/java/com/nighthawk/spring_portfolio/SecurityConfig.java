@@ -3,7 +3,8 @@ package com.nighthawk.spring_portfolio;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.nighthawk.spring_portfolio.mvc.jwt.JwtAuthenticationEntryPoint;
 import com.nighthawk.spring_portfolio.mvc.jwt.JwtRequestFilter;
-import com.nighthawk.spring_portfolio.mvc.person.PersonDetailsService;
+// import com.nighthawk.spring_portfolio.mvc.person.PersonDetailsService;
+import com.nighthawk.spring_portfolio.mvc.usr.UsrDetailsService;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,8 +22,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 
-
-
 /*
 * To enable HTTP Security in Spring, extend the WebSecurityConfigurerAdapter. 
 */
@@ -37,8 +36,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
 
+	// @Autowired
+	// private PersonDetailsService personDetailsService;
+
 	@Autowired
-	private PersonDetailsService personDetailsService;
+	private UsrDetailsService usrDetailsService;
 
     @Bean  // Sets up password encoding style
     PasswordEncoder passwordEncoder(){
@@ -50,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// configure AuthenticationManager so that it knows from where to load
 		// user for matching credentials
 		// Use BCryptPasswordEncoder
-		auth.userDetailsService(personDetailsService).passwordEncoder(passwordEncoder());
+		auth.userDetailsService(usrDetailsService).passwordEncoder(passwordEncoder());
 	}
 
 	@Override
@@ -68,8 +70,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.csrf().disable()
 			// list the requests/endpoints need to be authenticated
 			.authorizeRequests()
-				.antMatchers("/mvc/person/update/**", "/mvc/person/delete/**").authenticated()
-				.antMatchers("/api/person/**").authenticated()
+				.antMatchers("/mvc/usr/update/**", "/mvc/usr/delete/**").authenticated()
+				//.antMatchers("/api/usr/**").permitAll()
+				.antMatchers("/api/usr/**").authenticated()
+				.antMatchers("/api/usr/post").permitAll()
 				.and()
 			// support cors
 			.cors().and()
@@ -79,7 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Headers", "Content-Type", "Authorization", "x-csrf-token"))
 				.addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-MaxAge", "600"))
 				.addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Methods", "POST", "GET", "OPTIONS", "HEAD"))
-				//.addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Origin", "https://nighthawkcoders.github.io", "http://localhost:4000"))
+				.addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Origin", "http://localhost:4200/", "https://drewreed2005.github.io/dre2/", "https://csa-tri-1.github.io/DADDiJkstra-frontend/"))//"https://nighthawkcoders.github.io", "https://dijkstra-tri1.vercel.app/", "https://drewreed2005.github.io/", "https://web.postman.co/", "http://localhost:4000", "http://localhost:8085", "http://0.0.0.0:4200/"))
 				.and()
 			.formLogin()
                 .loginPage("/login")

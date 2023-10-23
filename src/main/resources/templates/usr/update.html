@@ -5,7 +5,7 @@
       layout:decorate="~{layouts/base}" lang="en">
 
 <head>
-    <title>Person Update</title>
+    <title>Usr Update</title>
 </head>
 
 <body>
@@ -14,7 +14,7 @@
     <div class="container">
 
         <div class="row justify-content-md-center">
-            <h2>Welcome, Update The Persons Details</h2>
+            <h2>Welcome, Update The Usr Details</h2>
         </div>
 
         <div class="row justify-content-md-center">
@@ -36,17 +36,17 @@
                             https://getbootstrap.com/docs/4.0/components/forms/#readonly-plain-text
                      -->
                     <!--Read Only Section -->
-                    <h3 th:text="'ID: ' + ${person.id}"></h3>
+                    <h3 th:text="'ID: ' + ${usr.id}"></h3>
                     <table>
-                        <tr th:if="${person.roles.empty}">
+                        <tr th:if="${usr.roles.empty}">
                             <td colspan="2"> No Roles </td>
                         </tr>
-                        <tr th:each="role : ${person.roles}">
+                        <tr th:each="role : ${usr.roles}">
                             <td><span th:text="${role.name}"> Name </span></td>
                         </tr>
                     </table>
                     <!--Update Form -->
-                    <form class="form-inline" action="#" th:action="@{/mvc/person/update}" th:object="${person}" method="POST">
+                    <form class="form-inline" action="#" th:action="@{/mvc/usr/update}" th:object="${usr}" method="POST">
                         <!-- Hidden Section, stuff we need to reference to preserve on Update -->
                         <div class="form-group mb-2 mr-sm-2">
                             <label for="id" hidden></label>
@@ -70,11 +70,21 @@
                             <input type="text" th:field="*{name}" id="name">
                             <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</small>
                         </div>
-                        <div class="form-group mb-2 mr-sm-2">
-                            <label for="dob">Birth Date:</label>
-                            <input type="date" th:field="*{dob}" id="dob">
-                            <small th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}">Birth Date Error</small>
+                        <!-- <div class="form-group mb-2 mr-sm-2">
+                            <label for="highScore">High Score:</label>
+                            <input type="text" th:field="*{highScore}" id="highScore">
+                            <small th:if="${#fields.hasErrors('highScore')}" th:errors="*{highScore}">High Score Error</small>
                         </div>
+                        <div class="form-group mb-2 mr-sm-2">
+                            <label for="totalOfAllScores">Total of All Scores:</label>
+                            <input type="text" th:field="*{totalOfAllScores}" id="totalOfAllScores">
+                            <small th:if="${#fields.hasErrors('totalOfAllScores')}" th:errors="*{totalOfAllScores}">Score Total Error</small>
+                        </div>
+                        <div class="form-group mb-2 mr-sm-2">
+                            <label for="numberOfScores">Number of Scores:</label>
+                            <input type="text" th:field="*{numberOfScores}" id="numberOfScores">
+                            <small th:if="${#fields.hasErrors('numberOfScores')}" th:errors="*{numberOfScores}">Score Number Error</small>
+                        </div> -->
                         <button type="submit" class="btn btn-primary">Save</button>
                     </form>
                 </div>

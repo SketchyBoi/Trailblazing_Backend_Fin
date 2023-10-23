@@ -12,6 +12,8 @@ import com.nighthawk.spring_portfolio.mvc.note.Note;
 import com.nighthawk.spring_portfolio.mvc.note.NoteJpaRepository;
 import com.nighthawk.spring_portfolio.mvc.person.Person;
 import com.nighthawk.spring_portfolio.mvc.person.PersonDetailsService;
+import com.nighthawk.spring_portfolio.mvc.usr.Usr;
+import com.nighthawk.spring_portfolio.mvc.usr.UsrDetailsService;
 
 import java.util.List;
 
@@ -21,6 +23,7 @@ public class ModelInit {
     @Autowired JokesJpaRepository jokesRepo;
     @Autowired NoteJpaRepository noteRepo;
     @Autowired PersonDetailsService personService;
+    @Autowired UsrDetailsService usrService;
 
     @Bean
     CommandLineRunner run() {  // The run() method will be executed after the application starts
@@ -49,6 +52,15 @@ public class ModelInit {
                 }
             }
 
+            // Usr database test data
+            Usr[] usrArray = Usr.init();
+            for (Usr usr : usrArray) {
+                //findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase
+                List<Usr> usrFound = usrService.list(usr.getName(), usr.getEmail());  // lookup
+                if (usrFound.size() == 0) {
+                    usrService.save(usr);  // save               
+                }
+            }
         };
     }
 }

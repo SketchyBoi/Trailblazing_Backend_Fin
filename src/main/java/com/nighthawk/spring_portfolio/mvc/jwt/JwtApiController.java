@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nighthawk.spring_portfolio.mvc.person.Person;
-import com.nighthawk.spring_portfolio.mvc.person.PersonDetailsService;
+// import com.nighthawk.spring_portfolio.mvc.person.Person;
+// import com.nighthawk.spring_portfolio.mvc.person.PersonDetailsService;
+import com.nighthawk.spring_portfolio.mvc.usr.Usr;
+import com.nighthawk.spring_portfolio.mvc.usr.UsrDetailsService;
 
 @RestController
 @CrossOrigin
@@ -27,13 +29,16 @@ public class JwtApiController {
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
 
+	// @Autowired
+	// private PersonDetailsService personDetailsService;
+
 	@Autowired
-	private PersonDetailsService personDetailsService;
+	private UsrDetailsService usrDetailsService;
 
 	@PostMapping("/authenticate")
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody Person authenticationRequest) throws Exception {
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody Usr authenticationRequest) throws Exception {
 		authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
-		final UserDetails userDetails = personDetailsService
+		final UserDetails userDetails = usrDetailsService
 				.loadUserByUsername(authenticationRequest.getEmail());
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		final ResponseCookie tokenCookie = ResponseCookie.from("jwt", token)
