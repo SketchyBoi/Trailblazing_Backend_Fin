@@ -35,7 +35,7 @@ public class DijkstraApiController {
         int[][] adjacencyList = request.getAdjacencyList();
         int source = request.getSource();
         int target = request.getTarget();
-        HashMap<Integer,int[]> = request.getCoordinates();
+        HashMap<Integer,int[]> coordinates= request.getCoordinates();
 
         WeightedGraph weightedGraph = new WeightedGraph();
         weightedGraph.setGraphFromAdjacencyList(adjacencyList);
