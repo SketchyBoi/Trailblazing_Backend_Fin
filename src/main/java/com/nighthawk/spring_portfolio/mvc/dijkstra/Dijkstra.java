@@ -83,19 +83,19 @@ public class Dijkstra {
     }
     
 
-    public static void main(String args[]) {
-        dijkstra(test, 9);
-        for (Map.Entry<Node, Integer> optimalDistance : ShortestDistanceMap.entrySet()) {
-            System.out.println("Shortest distance from vertex 9 to vertex " + 
-            optimalDistance.getKey().getIndex() + 
-            " is: " 
-            + optimalDistance.getValue());
-        }
-        Stack<Integer> OptimalDistanceToTarget = ReverseIteratePath(9, 10);
-        System.out.println(OptimalDistanceToTarget);
-        while (!OptimalDistanceToTarget.isEmpty()) {
-            System.out.println(OptimalDistanceToTarget.pop());
-        }
-    }
+    // public static void main(String args[]) {
+    //     dijkstra(test, 9);
+    //     for (Map.Entry<Node, Integer> optimalDistance : ShortestDistanceMap.entrySet()) {
+    //         System.out.println("Shortest distance from vertex 9 to vertex " + 
+    //         optimalDistance.getKey().getIndex() + 
+    //         " is: " 
+    //         + optimalDistance.getValue());
+    //     }
+    //     Stack<Integer> OptimalDistanceToTarget = ReverseIteratePath(9, 10);
+    //     System.out.println(OptimalDistanceToTarget);
+    //     while (!OptimalDistanceToTarget.isEmpty()) {
+    //         System.out.println(OptimalDistanceToTarget.pop());
+    //     }
+    // }
 
 }
