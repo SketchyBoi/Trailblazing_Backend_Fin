@@ -80,6 +80,7 @@ public class DijkstraApiController {
         Dijkstra.dijkstra(weightedGraph, source);
         ArrayList<Integer> shortestPath = Dijkstra.ReverseIteratePath(source, target);
 
+        //TODO: implement storing the coordinates of the graph in the backend.
         // Usr usr = new Usr(email, password, name); //highScore, totalOfAllScores, numberOfScores);
         // repository.save(usr);
         return new ResponseEntity<>(shortestPath, HttpStatus.OK);
