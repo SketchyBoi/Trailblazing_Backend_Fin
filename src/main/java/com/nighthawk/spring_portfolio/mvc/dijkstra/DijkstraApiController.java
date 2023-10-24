@@ -18,45 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import com.nighthawk.spring_portfolio.mvc.usr.Usr;
 import com.nighthawk.spring_portfolio.mvc.usr.UsrJpaRepository;
 
-public class graphRequest {
-    private int source;
-    private int target;
-    private int[][] adjacencyList;
-    private Hashmap<Integer,int[]> coordinates;
-
-    public int getSource() {
-        return source;
-    }
-
-    public void setSource(int source) {
-        this.source = source;
-    }
-
-    public int getTarget() {
-        return target;
-    }
-
-    public void setTarget(int target) {
-        this.target = target;
-    }
-
-    public int[][] getAdjacencyList() {
-        return adjacencyList;
-    }
-
-    public void setAdjacencyList(int[][] adjacencyList) {
-        this.adjacencyList = adjacencyList;
-    }
-
-    public Hashmap<Integer,int[]> getCoordinates() {
-        return coordinates;
-    }
-
-    public void setCoordinates(Hashmap<Integer,int[]> coordinates) {
-        this.coordinates = coordinates;
-    }
-}
-
 @RestController
 @RequestMapping("/api/dijkstra") // Sets the path to our dijkstra algorithm
 public class DijkstraApiController {
@@ -69,7 +30,7 @@ public class DijkstraApiController {
 
     @PostMapping("/")
     @ResponseBody
-    public ResponseEntity<Object> findShortestPath(@RequestBody graphRequest request) {
+    public ResponseEntity<Object> findShortestPath(@RequestBody GraphRequest request) {
         int[][] adjacencyList = request.getAdjacencyList();
         int source = request.getSource();
         int target = request.getTarget();
