@@ -33,11 +33,11 @@ public class GraphRequest {
         this.adjacencyList = adjacencyList;
     }
 
-    public Hashmap<Integer,int[]> getCoordinates() {
+    public HashMap<Integer,int[]> getCoordinates() {
         return coordinates;
     }
 
-    public void setCoordinates(Hashmap<Integer,int[]> coordinates) {
+    public void setCoordinates(HashMap<Integer,int[]> coordinates) {
         this.coordinates = coordinates;
     }
 }
