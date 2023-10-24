@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -34,7 +35,7 @@ public class DijkstraApiController {
         int[][] adjacencyList = request.getAdjacencyList();
         int source = request.getSource();
         int target = request.getTarget();
-        Hashmap<Integer,int[]> = request.getCoordinates();
+        HashMap<Integer,int[]> = request.getCoordinates();
 
         WeightedGraph weightedGraph = new WeightedGraph();
         weightedGraph.setGraphFromAdjacencyList(adjacencyList);
