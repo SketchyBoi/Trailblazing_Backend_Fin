@@ -48,7 +48,7 @@ public class graphRequest {
         this.adjacencyList = adjacencyList;
     }
 
-    public int[][] getCoordinates() {
+    public Hashmap<Integer,int[]> getCoordinates() {
         return coordinates;
     }
 
@@ -71,12 +71,17 @@ public class DijkstraApiController {
     @ResponseBody
     public ResponseEntity<Object> findShortestPath(@RequestBody graphRequest request) {
         int[][] adjacencyList = request.getAdjacencyList();
+        int source = request.getSource();
+        int target = request.getTarget();
         Hashmap<Integer,int[]> = request.getCoordinates();
+
         WeightedGraph weightedGraph = new WeightedGraph();
         weightedGraph.setGraphFromAdjacencyList(adjacencyList);
+        Dijkstra.dijkstra(weightedGraph, source);
+        ArrayList<Integer> shortestPath = Dijkstra.ReverseIteratePath(source, target);
 
-        Usr usr = new Usr(email, password, name); //highScore, totalOfAllScores, numberOfScores);
-        repository.save(usr);
-        return new ResponseEntity<>(email +" is created successfully", HttpStatus.CREATED);
+        // Usr usr = new Usr(email, password, name); //highScore, totalOfAllScores, numberOfScores);
+        // repository.save(usr);
+        return new ResponseEntity<>(shortestPath, HttpStatus.OK);
     }
 }
