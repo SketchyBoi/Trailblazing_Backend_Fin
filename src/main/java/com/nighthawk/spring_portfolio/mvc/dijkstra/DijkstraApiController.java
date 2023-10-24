@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.nighthawk.spring_portfolio.mvc.usr.Usr;
 import com.nighthawk.spring_portfolio.mvc.usr.UsrJpaRepository;
+import com.nighthawk.spring_portfolio.mvc.dijkstra.WeightedGraph;
 
 @RestController
 @RequestMapping("/api/dijkstra") // Sets the path to our dijkstra algorithm
