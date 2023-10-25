@@ -60,7 +60,7 @@ public class UsrApiController {
     }
 
     /*
-    POST Aa record by Requesting Parameters from URI
+    POST Aa record by Requesting Parameters from URL
      */
     @PostMapping( "/post")
     public ResponseEntity<Object> postUsr(@RequestParam("email") String email,
@@ -73,6 +73,50 @@ public class UsrApiController {
         Usr usr = new Usr(email, password, name); //highScore, totalOfAllScores, numberOfScores);
         repository.save(usr);
         return new ResponseEntity<>(email +" is created successfully", HttpStatus.CREATED);
+    }
+
+    /*
+    PUT Aa record by Requesting Parameters from BODY
+     */
+    public class CanvasUpdate {
+        private String email;
+        private int[][] newCanvasHistory;
+
+        public CanvasUpdate(String email, int[][] newCanvasHistory) {
+            this.email = email;
+            this.newCanvasHistory = newCanvasHistory;
+        }
+
+        public String getEmail() {
+            return this.email;
+        }
+
+        public int[][] getNewCanvasHistory() {
+            return this.newCanvasHistory;
+        }
+    }
+    
+    @PutMapping("/update")
+    public ResponseEntity<Object> updateUsr(@RequestBody CanvasUpdate canvasUpdate) {
+        try {
+            // Find the user by email
+            Usr usr = repository.findByEmail(canvasUpdate.getEmail());
+
+            if (usr != null) {
+                // Convert the JSON string to a 2D int array and add it to the user's canvasHistory
+                usr.addCanvasHistory(canvasUpdate.getNewCanvasHistory());
+
+                // Save the updated user
+                repository.save(usr);
+
+                return new ResponseEntity<>("User updated successfully", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to update user", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /*
