@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import org.hibernate.mapping.Array;
+
 public class Dijkstra {
     private static final int inf = Integer.MAX_VALUE;
     private static HashMap<Node, Integer> ShortestDistanceMap;
@@ -12,10 +14,10 @@ public class Dijkstra {
     private static ArrayList<Node> NodeArrayList;
     private static Node CurrentNodeToTraverse;
     private static int alt;
-    private static BiDirectionalWeightedGraph InputGraph;
+    private static WeightedGraph InputGraph;
     
     
-    public static HashMap<Node, Integer> dijkstra(BiDirectionalWeightedGraph Graph, int SourceVertexLabel) {
+    public static HashMap<Node, Integer> dijkstra(WeightedGraph Graph, int SourceVertexLabel) {
         InputGraph = Graph;
         ShortestDistanceMap = new HashMap<Node, Integer>();
         ParentVerticesMap = new HashMap<Integer, Integer>();
@@ -62,7 +64,7 @@ public class Dijkstra {
         return optimalNode;
     }
 
-    public static Stack<Integer> ReverseIteratePath (int sourceNodetoIterate, int targetNodetoIterate) {
+    public static ArrayList<Integer> ReverseIteratePath (int sourceNodetoIterate, int targetNodetoIterate) {
         Stack<Integer> ShortestPathStack = new Stack<Integer>();
         System.out.println(ParentVerticesMap.get(targetNodetoIterate));
         Integer CurrentNodeToTrace = targetNodetoIterate;
@@ -73,22 +75,27 @@ public class Dijkstra {
                 CurrentNodeToTrace = ParentVerticesMap.get(CurrentNodeToTrace);
             }
         }
-        return ShortestPathStack;
+        ArrayList<Integer> shortestPath = new ArrayList<Integer>();
+        while (!ShortestPathStack.isEmpty()) {
+            shortestPath.add(ShortestPathStack.pop());
+        }
+        return shortestPath;
     }
+    
 
-    public static void main(String args[]) {
-        dijkstra(test, 9);
-        for (Map.Entry<Node, Integer> optimalDistance : ShortestDistanceMap.entrySet()) {
-            System.out.println("Shortest distance from vertex 9 to vertex " + 
-            optimalDistance.getKey().getIndex() + 
-            " is: " 
-            + optimalDistance.getValue());
-        }
-        Stack<Integer> OptimalDistanceToTarget = ReverseIteratePath(9, 10);
-        System.out.println(OptimalDistanceToTarget);
-        while (!OptimalDistanceToTarget.isEmpty()) {
-            System.out.println(OptimalDistanceToTarget.pop());
-        }
-    }
+    // public static void main(String args[]) {
+    //     dijkstra(test, 9);
+    //     for (Map.Entry<Node, Integer> optimalDistance : ShortestDistanceMap.entrySet()) {
+    //         System.out.println("Shortest distance from vertex 9 to vertex " + 
+    //         optimalDistance.getKey().getIndex() + 
+    //         " is: " 
+    //         + optimalDistance.getValue());
+    //     }
+    //     Stack<Integer> OptimalDistanceToTarget = ReverseIteratePath(9, 10);
+    //     System.out.println(OptimalDistanceToTarget);
+    //     while (!OptimalDistanceToTarget.isEmpty()) {
+    //         System.out.println(OptimalDistanceToTarget.pop());
+    //     }
+    // }
 
 }

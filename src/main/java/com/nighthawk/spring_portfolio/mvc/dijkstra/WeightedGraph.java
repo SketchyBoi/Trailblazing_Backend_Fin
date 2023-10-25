@@ -5,6 +5,9 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class WeightedGraph {
     private ArrayList<Node> Graph;
 
@@ -78,6 +81,22 @@ public class WeightedGraph {
             }
         }
         return adjacencyList;
+    }
+
+    public void setGraphFromAdjacencyList(int[][] adjacencyList){
+        this.Graph = new ArrayList<Node>();         // Reset Graph to blank graph
+        for (int index = 1; index <=adjacencyList.length; index++) {         // Initialize the new nodes 
+            Node tempVertice = new Node(index);
+            addVertice(tempVertice);
+        }
+        for (int i = 0; i<adjacencyList.length; i++) {
+            for (int j = 0; j<adjacencyList[0].length; j++) {
+                int source = i+1;                   // source is current index + 1
+                int destination = j+1;              // destination is current index + 1
+                int weight = adjacencyList[i][j];    // weight is current element of 2D array
+                addEdgeToGraph(source, destination, weight);        // Add weighted edge
+            } 
+        }
     }
 }
 
