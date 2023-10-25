@@ -4,7 +4,7 @@ services:
     image: DADDJ_Backend
     build: .
     ports:
-      - "8085:8085"
+      - "8082:8082"
     volumes:
        - ./volumes:/volumes
     restart: unless-stopped
