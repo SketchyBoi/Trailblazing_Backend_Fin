@@ -101,6 +101,7 @@ public class UsrApiController {
         try {
             // Find the user by email
             Usr usr = repository.findByEmail(canvasUpdate.getEmail());
+            System.out.println(usr);
 
             if (usr != null) {
                 // Convert the JSON string to a 2D int array and add it to the user's canvasHistory
