@@ -71,6 +71,7 @@ public class UsrApiController {
                                             // @RequestParam("numerOfScores") int numberOfScores) {
         // A person object WITHOUT ID will create a new record with default roles as student
         Usr usr = new Usr(email, password, name); //highScore, totalOfAllScores, numberOfScores);
+        usr.setPassword(password);
         repository.save(usr);
         return new ResponseEntity<>(email +" is created successfully", HttpStatus.CREATED);
     }
