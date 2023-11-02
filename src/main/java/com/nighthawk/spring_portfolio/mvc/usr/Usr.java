@@ -150,13 +150,21 @@ public class Usr {
             {10000, 4, 10000, 10000},
             {3, 10000, 5, 10000, 10000}
         };
-        Integer[][] coords = new Integer[][] {
+        Integer[][] preCoords = new Integer[][] {
             new Integer[] {512, 125},
             new Integer[] {620, 197},
             new Integer[] {512, 251},
             new Integer[] {432, 207},
             new Integer[] {404, 81}
         };
+        HashMap<Integer, Integer[]> coords = new HashMap<Integer, Integer[]>();
+        for (Integer i = 0; i < preCoords.length; i++) {
+            Integer coord[] = new Integer[2];
+            coord[0] = preCoords[i][0];
+            coord[1] = preCoords[i][1];
+            Integer nodeID = i + 1;
+            coords.put(nodeID, coord);
+        }
         HashMap<String, Object> history = new HashMap<String, Object>();
         history.put("adjacencyList", adj);
         history.put("coords", coords);

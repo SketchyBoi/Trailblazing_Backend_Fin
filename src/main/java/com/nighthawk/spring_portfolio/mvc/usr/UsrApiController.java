@@ -99,8 +99,11 @@ public class UsrApiController {
             logger.debug("Found user: {}", usr);
 
             if (usr != null) {
-                // Convert the JSON string to a 2D int array and add it to the user's canvasHistory
-                usr.addCanvasHistory(canvasUpdate.getHistory());
+                HashMap<String, Object> history = new HashMap<String, Object>();
+                history.put("adjacencyList", canvasUpdate.getAdj());
+                history.put("coords", canvasUpdate.getCoords());
+                // add the canvas history with the built in user method
+                usr.addCanvasHistory(history);
 
                 // Save the updated user
                 repository.save(usr);
