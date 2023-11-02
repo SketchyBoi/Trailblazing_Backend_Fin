@@ -14,6 +14,7 @@ import com.nighthawk.spring_portfolio.mvc.usr.CanvasUpdate;
 import java.util.*;
 
 @RestController
+@CrossOrigin(origins = "https://csa-tri-1.github.io")
 @RequestMapping("/api/usr")
 public class UsrApiController {
     @Autowired UsrDetailsService usrService;
