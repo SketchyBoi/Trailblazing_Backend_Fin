@@ -95,7 +95,7 @@ public class UsrApiController {
 
             if (usr != null) {
                 // Convert the JSON string to a 2D int array and add it to the user's canvasHistory
-                usr.addCanvasHistory(canvasUpdate.getAdj());
+                usr.addCanvasHistory(canvasUpdate.getHistory());
 
                 // Save the updated user
                 repository.save(usr);

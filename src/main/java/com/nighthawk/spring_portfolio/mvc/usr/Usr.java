@@ -61,7 +61,7 @@ public class Usr {
     @Size(min = 2, max = 30, message = "Name (2 to 30 chars)")
     private String name;
 
-    private ArrayList<int[][]> canvasHistory;
+    private ArrayList<HashMap<String, Object>> canvasHistory;
 
     // private double highScore;
 
@@ -90,16 +90,17 @@ public class Usr {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.canvasHistory = new ArrayList<int[][]>();
+        this.canvasHistory = new ArrayList<HashMap<String, Object>>();
         // this.highScore = highScore;
         // this.totalOfAllScores = totalOfAllScores;
         // this.numberOfScores = numberOfScores;
     }
 
-    public void addCanvasHistory(int[][] newCanvasHistory) {
+    public void addCanvasHistory(HashMap<String, Object> newCanvasHistory) {
         this.canvasHistory.add(newCanvasHistory);
     }
 
+    /* IF NEEDED FOR JSON CONVERSION, CURRENTLY OBSOLETE
     public void addCanvasHistoryThruJSON(String newCanvasHistoryJSON) {
         try {
             this.addCanvasHistory(convertJsonToData(newCanvasHistoryJSON));
@@ -107,6 +108,7 @@ public class Usr {
             e.printStackTrace();
         }
     }
+    */
 
     // a custom getter to return the average score of a usr
     // public double getAverageScore() {
@@ -141,21 +143,24 @@ public class Usr {
         // p3.setName("Drew Reed");
         // p3.setEmail("drewreedyo@gmail.com");
         // p3.setPassword("notMyActualPassw0rd");
-        int[][] data = {
-            {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
-            {1, 0, 3, 6, 0, 0, 0, 0, 0, 0, 50, 0},
-            {2, 3, 0, 2, 6, 0, 0, 0, 0, 0, 40, 0},
-            {3, 6, 2, 0, 7, 8, 0, 0, 0, 0, 0, 0},
-            {4, 0, 6, 7, 0, 1, 8, 0, 0, 0, 0, 0},
-            {5, 0, 0, 8, 1, 0, 4, 10, 0, 0, 0, 0},
-            {6, 0, 0, 0, 8, 4, 0, 6, 10, 0, 0, 0},
-            {7, 0, 0, 0, 0, 10, 6, 0, 8, 2, 0, 0},
-            {8, 0, 0, 0, 0, 0, 10, 8, 0, 9, 20000, 0},
-            {9, 0, 0, 0, 0, 0, 0, 2, 9, 0, 1000, 0},
-            {10, 50, 40, 0, 0, 0, 0, 0, 20000, 1000, 0, 0},
-            {11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-        };  
-        p3.addCanvasHistory(data);
+        Integer[][] adj = {
+            {10000, 3, 3, 10000, 3},
+            {3, 10000, 3, 4},
+            {3, 3, 10000, 10000, 5},
+            {10000, 4, 10000, 10000},
+            {3, 10000, 5, 10000, 10000}
+        };
+        Integer[][] coords = new Integer[][] {
+            new Integer[] {512, 125},
+            new Integer[] {620, 197},
+            new Integer[] {512, 251},
+            new Integer[] {432, 207},
+            new Integer[] {404, 81}
+        };
+        HashMap<String, Object> history = new HashMap<String, Object>();
+        history.put("adjacencyList", adj);
+        history.put("coords", coords);
+        p3.addCanvasHistory(history);
         // p3.setHighScore(84.9);
         // p3.setTotalOfAllScores(500.0);
         // p3.setNumberOfScores(6);
