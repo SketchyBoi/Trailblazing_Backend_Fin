@@ -143,6 +143,8 @@ public class Usr {
         // p3.setName("Drew Reed");
         // p3.setEmail("drewreedyo@gmail.com");
         // p3.setPassword("notMyActualPassw0rd");
+        Usr p4 = new Usr("js@test.com", "pass", "js");
+
         Integer[][] adj = {
             {10000, 3, 3, 10000, 3},
             {3, 10000, 3, 4},
@@ -173,7 +175,7 @@ public class Usr {
         // p3.setTotalOfAllScores(500.0);
         // p3.setNumberOfScores(6);
         // Array definition and data initialization
-        Usr usrs[] = {p1, p2, p3};
+        Usr usrs[] = {p1, p2, p3, p4};
         return(usrs);
     }
 
