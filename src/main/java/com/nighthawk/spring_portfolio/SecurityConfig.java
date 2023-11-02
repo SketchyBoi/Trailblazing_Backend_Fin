@@ -73,7 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/mvc/usr/update/**", "/mvc/usr/delete/**").authenticated()
 				//.antMatchers("/api/usr/**").permitAll()
 				.antMatchers("/api/usr/", "/api/usr/delete").authenticated()
-				.antMatchers("/api/usr/post", "/api/usr/update").permitAll()
+				.antMatchers("/api/usr/post", "/api/usr/update", "/authenticate").permitAll()
 				//.antMatchers("/api/usr/update").permitAll()
 				//.antMatchers("/api/dijkstra/").permitAll()
 				.and()
