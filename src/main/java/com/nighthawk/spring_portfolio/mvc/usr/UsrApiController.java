@@ -5,6 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.nighthawk.spring_portfolio.mvc.usr.CanvasUpdate;
 
 import java.util.*;
 
@@ -17,6 +21,7 @@ public class UsrApiController {
     #### RESTful API ####
     Resource: https://spring.io/guides/gs/rest-service/
     */
+    private static final Logger logger = LoggerFactory.getLogger(UsrApiController.class);
 
     // Autowired enables Control to connect POJO Object through JPA
     @Autowired
@@ -78,35 +83,19 @@ public class UsrApiController {
 
     /*
     PUT Aa record by Requesting Parameters from BODY
-     */
-    public class CanvasUpdate {
-        private String email;
-        private int[][] newCanvasHistory;
-
-        public CanvasUpdate(String email, int[][] newCanvasHistory) {
-            this.email = email;
-            this.newCanvasHistory = newCanvasHistory;
-        }
-
-        public String getEmail() {
-            return this.email;
-        }
-
-        public int[][] getNewCanvasHistory() {
-            return this.newCanvasHistory;
-        }
-    }
-    
+    */
     @PutMapping("/update")
     public ResponseEntity<Object> updateUsr(@RequestBody CanvasUpdate canvasUpdate) {
         try {
+            logger.debug("Received PUT request for updating user data: {}", canvasUpdate);
+
             // Find the user by email
             Usr usr = repository.findByEmail(canvasUpdate.getEmail());
-            System.out.println(usr);
+            logger.debug("Found user: {}", usr);
 
             if (usr != null) {
                 // Convert the JSON string to a 2D int array and add it to the user's canvasHistory
-                usr.addCanvasHistory(canvasUpdate.getNewCanvasHistory());
+                usr.addCanvasHistory(canvasUpdate.getAdj());
 
                 // Save the updated user
                 repository.save(usr);
@@ -117,6 +106,7 @@ public class UsrApiController {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            logger.error("Failed to update user", e);
             return new ResponseEntity<>("Failed to update user", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
