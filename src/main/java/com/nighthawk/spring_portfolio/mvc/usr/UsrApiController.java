@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,9 @@ public class UsrApiController {
     // Autowired enables Control to connect POJO Object through JPA
     @Autowired
     private UsrJpaRepository repository;
+
+    @Autowired  // Inject PasswordEncoder
+    private PasswordEncoder passwordEncoder;
 
     /*
     GET List of People
@@ -77,8 +81,8 @@ public class UsrApiController {
                                             // @RequestParam("numerOfScores") int numberOfScores) {
         // A person object WITHOUT ID will create a new record with default roles as student
         Usr usr = new Usr(email, password, name); //highScore, totalOfAllScores, numberOfScores);
-        usrService.save(usr); // PASSWORD ENCRYPTION
-        //repository.save(usr);
+        usr.setPassword(passwordEncoder.encode(usr.getPassword())); // PASSWORD ENCRYPTION
+        repository.save(usr);
         return new ResponseEntity<>(email +" is created successfully", HttpStatus.CREATED);
     }
 
