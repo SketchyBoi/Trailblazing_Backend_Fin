@@ -134,7 +134,7 @@ public class Usr {
         // p1.setNumberOfScores(3);
 
         // basics of class construction
-        Usr p2 = new Usr("kendallreistemail@icloud.com", "kendallsImpossibleToGuessPassw0rd", "Kendall Reist");
+        Usr p2 = new Usr("test2@gmail.com", "kendallsImpossibleToGuessPassw0rd", "Kendall Reist");
         // p2.setHighScore(94.1);
         // p2.setTotalOfAllScores(1220.9);
         // p2.setNumberOfScores(14);
