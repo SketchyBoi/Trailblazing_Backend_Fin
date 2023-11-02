@@ -128,7 +128,7 @@ public class Usr {
     public static Usr[] init() {
 
         // basics of class construction
-        Usr p1 = new Usr("toby@gmail.com", "123Toby!", "Thomas Edison");
+        Usr p1 = new Usr("hi@test.com", "123Toby!", "Thomas Edison");
         // p1.setHighScore(88.3);
         // p1.setTotalOfAllScores(238.2);
         // p1.setNumberOfScores(3);
