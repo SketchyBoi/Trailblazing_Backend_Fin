@@ -85,7 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Headers", "Content-Type", "Authorization", "x-csrf-token"))
 				.addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-MaxAge", "600"))
 				.addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Methods", "POST", "PUT", "GET", "OPTIONS", "HEAD"))
-				.addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Origin", "http://localhost:4200", "http://localhost:4000", "https://drewreed2005.github.io", "https://csa-tri-1.github.io"))//"https://nighthawkcoders.github.io", "https://dijkstra-tri1.vercel.app/", "https://drewreed2005.github.io/", "https://web.postman.co/", "http://localhost:4000", "http://localhost:8084", "http://0.0.0.0:4200/"))
+				.addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Origin", "http://localhost:4200", "http://localhost:4000", "https://drewreed2005.github.io", "https://csa-tri-1.github.io", "https://daddjbackend.stu.nighthawkcodingsociety.com"))//"https://nighthawkcoders.github.io", "https://dijkstra-tri1.vercel.app/", "https://drewreed2005.github.io/", "https://web.postman.co/", "http://localhost:4000", "http://localhost:8084", "http://0.0.0.0:4200/"))
 				.and()
 			.formLogin()
                 .loginPage("/login")
