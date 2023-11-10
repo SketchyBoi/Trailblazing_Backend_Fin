@@ -46,7 +46,6 @@ public class Usr {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    // email, password, roles are key attributes to login and authentication
     @NotEmpty
     @Size(min=5)
     @Column(unique=true)
@@ -56,125 +55,38 @@ public class Usr {
     @NotEmpty
     private String password;
 
-    // @NonNull, etc placed in params of constructor: "@NonNull @Size(min = 2, max = 30, message = "Name (2 to 30 chars)") String name"
     @NonNull
     @Size(min = 2, max = 30, message = "Name (2 to 30 chars)")
     private String name;
 
-    private ArrayList<HashMap<String, Object>> canvasHistory;
+    private int counter;
 
-    // private double highScore;
-
-    // private double totalOfAllScores;
-
-    // private int numberOfScores;
+    @Column
+    private int addition;
 
     // To be implemented
     @ManyToMany(fetch = EAGER)
     private Collection<UsrRole> roles = new ArrayList<>();
 
-    /* HashMap is used to store JSON for daily "stats"
-    "stats": {
-        "2022-11-13": {
-            "calories": 2200,
-            "steps": 8000
-        }
-    }
-    */
     @Type(type="json")
     @Column(columnDefinition = "jsonb")
     private Map<String,Map<String, Object>> stats = new HashMap<>(); 
 
     // Constructor used when building object from an API
-    public Usr(String email, String password, String name) { //double highScore, double totalOfAllScores, int numberOfScores) {
+    public Usr(String email, String password, String name, int counter) { //double highScore, double totalOfAllScores, int numberOfScores) {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.canvasHistory = new ArrayList<HashMap<String, Object>>();
-        // this.highScore = highScore;
-        // this.totalOfAllScores = totalOfAllScores;
-        // this.numberOfScores = numberOfScores;
+        this.counter = counter;
     }
-
-    public void addCanvasHistory(HashMap<String, Object> newCanvasHistory) {
-        this.canvasHistory.add(newCanvasHistory);
-    }
-
-    /* IF NEEDED FOR JSON CONVERSION, CURRENTLY OBSOLETE
-    public void addCanvasHistoryThruJSON(String newCanvasHistoryJSON) {
-        try {
-            this.addCanvasHistory(convertJsonToData(newCanvasHistoryJSON));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    */
-
-    // a custom getter to return the average score of a usr
-    // public double getAverageScore() {
-    //     // check if the usr has played at all and that score total is valid compared to number of games
-    //     if ((this.numberOfScores != 0) && ((this.numberOfScores * 100) > this.totalOfAllScores)) {
-    //         return this.totalOfAllScores / this.numberOfScores;
-    //     }
-    //     return 0.0;
-    // }
-
-    public static int[][] convertJsonToData(String jsonData) throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(jsonData, int[][].class);
-    }
-
     // Initialize static test data 
     public static Usr[] init() {
 
-        // basics of class construction
-        Usr p1 = new Usr("hi@test.com", "123Toby!", "Thomas Edison");
-        // p1.setHighScore(88.3);
-        // p1.setTotalOfAllScores(238.2);
-        // p1.setNumberOfScores(3);
+        Usr p1 = new Usr("hi@test.com", "123Toby!", "Thomas Edison", 0);
+        Usr p2 = new Usr("test2@gmail.com", "kendallsImpossibleToGuessPassw0rd", "Kendall Reist", 0);
+        Usr p3 = new Usr("drewreedyo@gmail.com", "insecure", "Drew Reed", 0);
+        Usr p4 = new Usr("js@test.com", "pass", "js", 0);
 
-        // basics of class construction
-        Usr p2 = new Usr("test2@gmail.com", "kendallsImpossibleToGuessPassw0rd", "Kendall Reist");
-        // p2.setHighScore(94.1);
-        // p2.setTotalOfAllScores(1220.9);
-        // p2.setNumberOfScores(14);
-
-        Usr p3 = new Usr("drewreedyo@gmail.com", "insecure", "Drew Reed");
-        // p3.setName("Drew Reed");
-        // p3.setEmail("drewreedyo@gmail.com");
-        // p3.setPassword("notMyActualPassw0rd");
-        Usr p4 = new Usr("js@test.com", "pass", "js");
-
-        Integer[][] adj = {
-            {10000, 3, 3, 10000, 3},
-            {3, 10000, 3, 4},
-            {3, 3, 10000, 10000, 5},
-            {10000, 4, 10000, 10000},
-            {3, 10000, 5, 10000, 10000}
-        };
-        Integer[][] preCoords = new Integer[][] {
-            new Integer[] {512, 125},
-            new Integer[] {620, 197},
-            new Integer[] {512, 251},
-            new Integer[] {432, 207},
-            new Integer[] {404, 81}
-        };
-        HashMap<Integer, Integer[]> coords = new HashMap<Integer, Integer[]>();
-        for (Integer i = 0; i < preCoords.length; i++) {
-            Integer coord[] = new Integer[2];
-            coord[0] = preCoords[i][0];
-            coord[1] = preCoords[i][1];
-            Integer nodeID = i + 1;
-            coords.put(nodeID, coord);
-        }
-        HashMap<String, Object> history = new HashMap<String, Object>();
-        history.put("adjacencyList", adj);
-        history.put("coords", coords);
-        p3.addCanvasHistory(history);
-        // p3.setHighScore(84.9);
-        // p3.setTotalOfAllScores(500.0);
-        // p3.setNumberOfScores(6);
-        // Array definition and data initialization
         Usr usrs[] = {p1, p2, p3, p4};
         return(usrs);
     }

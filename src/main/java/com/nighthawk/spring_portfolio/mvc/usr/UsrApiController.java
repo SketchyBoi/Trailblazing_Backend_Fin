@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.nighthawk.spring_portfolio.mvc.usr.CanvasUpdate;
+import com.nighthawk.spring_portfolio.mvc.usr.CounterUpdate;
 
 import java.util.*;
 
@@ -77,11 +77,8 @@ public class UsrApiController {
     public ResponseEntity<Object> postUsr(@RequestParam("email") String email,
                                             @RequestParam("password") String password,
                                             @RequestParam("name") String name) {
-                                            // @RequestParam("highScore") double highScore,
-                                            // @RequestParam("totalOfAllScores") double totalOfAllScores,
-                                            // @RequestParam("numerOfScores") int numberOfScores) {
         // A person object WITHOUT ID will create a new record with default roles as student
-        Usr usr = new Usr(email, password, name); //highScore, totalOfAllScores, numberOfScores);
+        Usr usr = new Usr(email, password, name, 0); //highScore, totalOfAllScores, numberOfScores);
         usr.setPassword(passwordEncoder.encode(usr.getPassword())); // PASSWORD ENCRYPTION
         repository.save(usr);
         return new ResponseEntity<>(email +" is created successfully", HttpStatus.CREATED);
@@ -91,21 +88,16 @@ public class UsrApiController {
     PUT Aa record by Requesting Parameters from BODY
     */
     @PutMapping("/update")
-    public ResponseEntity<Object> updateUsr(@RequestBody CanvasUpdate canvasUpdate) {
+    public ResponseEntity<Object> updateUsr(@ModelAttribute CounterUpdate counterUpdate, @RequestParam("addition") int addition) {
         try {
-            logger.debug("Received PUT request for updating user data: {}", canvasUpdate);
+            logger.debug("Received PUT request for updating user data: {}", counterUpdate);
 
             // Find the user by email
-            Usr usr = repository.findByEmail(canvasUpdate.getEmail());
+            Usr usr = repository.findByEmail(counterUpdate.getEmail());
             logger.debug("Found user: {}", usr);
 
             if (usr != null) {
-                HashMap<String, Object> history = new HashMap<String, Object>();
-                history.put("adjacencyList", canvasUpdate.getAdj());
-                history.put("coords", canvasUpdate.getCoords());
-                // add the canvas history with the built in user method
-                usr.addCanvasHistory(history);
-
+                usr.setCounter(usr.getCounter() + addition);
                 // Save the updated user
                 repository.save(usr);
 
@@ -120,50 +112,4 @@ public class UsrApiController {
         }
     }
 
-    /*
-    The personSearch API looks across database for partial match to term (k,v) passed by RequestEntity body
-     */
-    @PostMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> usrSearch(@RequestBody final Map<String,String> map) {
-        // extract term from RequestEntity
-        String term = (String) map.get("term");
-
-        // JPA query to filter on term
-        List<Usr> list = repository.findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(term, term);
-
-        // return resulting list and status, error checking should be added
-        return new ResponseEntity<>(list, HttpStatus.OK);
-    }
-
-    /*
-    The personStats API adds stats by Date to Person table 
-    */
-    @PostMapping(value = "/setStats", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Usr> usrStats(@RequestBody final Map<String,Object> stat_map) {
-        // find ID
-        long id=Long.parseLong((String)stat_map.get("id"));  
-        Optional<Usr> optional = repository.findById((id));
-        if (optional.isPresent()) {  // Good ID
-            Usr usr = optional.get();  // value from findByID
-
-            // Extract Attributes from JSON
-            Map<String, Object> attributeMap = new HashMap<>();
-            for (Map.Entry<String,Object> entry : stat_map.entrySet())  {
-                // Add all attribute other thaN "date" to the "attribute_map"
-                if (!entry.getKey().equals("date") && !entry.getKey().equals("id"))
-                    attributeMap.put(entry.getKey(), entry.getValue());
-            }
-
-            // Set Date and Attributes to SQL HashMap
-            Map<String, Map<String, Object>> date_map = new HashMap<>();
-            date_map.put( (String) stat_map.get("date"), attributeMap );
-            usr.setStats(date_map);  // BUG, needs to be customized to replace if existing or append if new
-            repository.save(usr);  // conclude by writing the stats updates
-
-            // return Person with update Stats
-            return new ResponseEntity<>(usr, HttpStatus.OK);
-        }
-        // return Bad ID
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
-    }
 }
