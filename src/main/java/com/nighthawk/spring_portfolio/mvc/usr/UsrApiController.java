@@ -14,23 +14,16 @@ import com.nighthawk.spring_portfolio.mvc.usr.CounterUpdate;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "https://csa-tri-1.github.io")
+// @CrossOrigin(origins = "https://csa-tri-1.github.io")
 @RequestMapping("/api/usr")
 public class UsrApiController {
     @Autowired UsrDetailsService usrService;
-    //     @Autowired
-    // private JwtTokenUtil jwtGen;
-    /*
-    #### RESTful API ####
-    Resource: https://spring.io/guides/gs/rest-service/
-    */
     private static final Logger logger = LoggerFactory.getLogger(UsrApiController.class);
 
-    // Autowired enables Control to connect POJO Object through JPA
     @Autowired
     private UsrJpaRepository repository;
 
-    @Autowired  // Inject PasswordEncoder
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     /*
